@@ -1,2 +1,2 @@
 # projetos_app
-App de gerenciamento de projetos
+App de gerenciamento de projetos.
