@@ -12,13 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $projects = \App\Project::where('active', true)
+        ->orderBy('id', 'desc')
+        ->get();
+    return view('welcome')->with(['projects' => $projects]);
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+// projects
+Route::resource('projects', 'ProjectsController');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// users
+Route::resource('users', 'UsersController');
