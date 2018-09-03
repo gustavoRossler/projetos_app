@@ -90,8 +90,10 @@ class ProjectsController extends Controller
     public function show($id)
     {
         $project = \App\Project::find($id);
+        $engineer = \App\User::find(3);
         return view('projects/show')->with([
-            'project' => $project
+            'project' => $project,
+            'engineer' => $engineer
         ]);
     }
 

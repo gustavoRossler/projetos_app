@@ -70,7 +70,10 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = auth()->user();
+        return view('users/edit')->with([
+            'user' => $user
+        ]);
     }
 
     /**
@@ -82,7 +85,44 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = \App\User::find($id);
+        if ($request->password) {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users,email,'.$id,
+                'password' => 'required|string|min:6|confirmed',
+            ]);
+            $data = $request->only('name', 'email', 'password');
+            $user->update([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+            ]);
+        } else {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users,email,'.$id,
+            ]);
+            $data = $request->only('name', 'email');
+            $user->update([
+                'name' => $data['name'],
+                'email' => $data['email'],
+            ]);
+        }
+
+        if ($request->hasfile('logo')) {
+            if ($user->logo) {
+                unlink (public_path() . '/files/' . $user->logo);
+            }
+            $file = $request->file('logo');
+            $name = strtolower($file->getClientOriginalName());
+            $file->move(public_path() . '/files/', $name);
+            $user->update([
+                'logo' => $name,
+            ]);
+        }
+
+        return back()->with('success', 'Cadastro atualizado com sucesso!');
     }
 
     /**

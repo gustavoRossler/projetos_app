@@ -105,10 +105,10 @@
                     <p>
                         <a href="{{ route('projects.index') }}">Meus projetos</a>
                     </p>
-                    <p>
-                        <a href="#">Dados comerciais</a>
-                    </p>
                     @endcan
+                    <p>
+                        <a href="{{ route('users.edit', auth()->user()->id) }}">Dados cadastrais</a>
+                    </p>
                     @endif
 
                 </div>
@@ -133,6 +133,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     
     <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 

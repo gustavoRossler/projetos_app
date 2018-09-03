@@ -4,8 +4,12 @@
 
 <div class="col-md-12">
     <h3>Detalhes do projeto</h3>
-    <p class="mt-3">
-        {!! nl2br($project->description) !!}
+    {!! $project->description !!}
+    <p class="">
+        <b>Área:</b> {{ $project->area }}m²
+    </p>
+    <p class="">
+        <b>Valor:</b> R$ {{ number_format($project->project_final_price, 2, ',', '.') }}
     </p>
     <hr>
 </div>
@@ -15,6 +19,19 @@
         <img src="{{ url('/') }}/files/{{ $image->file }}" style="width:100%;">
     </div>
     @endforeach
+
+    <div class="row mt-5">
+        <div class="col-md-6 mt-5 text-center">
+            <b>Arquiteto:</b> {{ $project->user->name }}
+            <br>
+            <img src="{{ url('/') }}/files/{{ $project->user->logo }}" alt="Logo do arquiteto" width="100">
+        </div>
+        <div class="col-md-6 mt-5 text-center">
+            <b>Engenheiro:</b> {{ $engineer->name }}
+            <br>
+            <img src="{{ url('/') }}/files/{{ $engineer->logo }}" alt="Logo do engenheiro" width="100">
+        </div>
+    </div>
 </div>
 <div class="col-md-6">
     <form action="" method="post">

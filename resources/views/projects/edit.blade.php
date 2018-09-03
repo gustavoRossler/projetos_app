@@ -61,8 +61,19 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="description" class="mb-0">Descrição</label>
-                <textarea name="description" id="description" class="form-control" 
-                    required rows="10">{{ old('description') ?? $project->description }}</textarea>
+                <vue-ckeditor
+                    id="ckEditorAddMensagem"
+                    name="description"
+                    value="{{ old('description') ?? $project->description }}"
+                    v-bind:config="{
+                        toolbar: [
+                            [
+                                'Bold', 'Undo', 'Redo','NumberedList', 'BulletedList',
+                            ]
+                        ],
+                        height: 200
+                    } "
+                />
                 @if ($errors->has('description'))
                     <span class="text-danger">
                         {{ $errors->first('description') }}

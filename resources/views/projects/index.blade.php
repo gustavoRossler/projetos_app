@@ -44,7 +44,7 @@
                 @can('admin')
                 <td>{{ $project->user->name }}</td>
                 @endcan
-                <td>{{ str_limit($project->description, $limit = 60, $end = '...') }}</td>
+                <td>{{ str_limit(html_entity_decode(strip_tags($project->description)), $limit = 60, $end = '...') }}</td>
                 <td>{{ $project->area }}m²</td>
                 <td>R$ {{ number_format($project->project_architect_price, 2, ',', '.') }}</td>
                 @can('admin')
